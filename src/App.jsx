@@ -1,9 +1,10 @@
 import React from 'react';
+import Dashboard from './pages/Dashboard';
 
 const App = () => {
   return (
     <div>
-      <h1>hello</h1>
+     <Dashboard/>
       
     </div>
   );
