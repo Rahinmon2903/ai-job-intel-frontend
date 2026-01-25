@@ -15,12 +15,10 @@ export default function Login() {
 
     try {
       const res = await api.post("/auth/login", { email, password });
-
       localStorage.setItem(
         "auth",
         JSON.stringify({ token: res.data.token })
       );
-
       navigate("/dashboard");
     } catch (err) {
       alert(err.response?.data?.message || "Login failed");
@@ -34,7 +32,7 @@ export default function Login() {
       {/* LEFT — PRODUCT STATEMENT */}
       <div className="hidden lg:flex w-1/2 flex-col justify-between px-20 py-16 border-r border-neutral-800">
         <div>
-          <p className="text-xs tracking-[0.25em] text-neutral-500 uppercase">
+          <p className="text-xs tracking-[0.3em] text-neutral-500 uppercase">
             Resume Intelligence
           </p>
 
@@ -44,8 +42,8 @@ export default function Login() {
           </h1>
 
           <p className="mt-6 max-w-sm text-neutral-400 text-sm leading-relaxed">
-            Review your resume strength, analyze new job descriptions,
-            and track where you stand before you apply.
+            Analyze resume readiness, compare job requirements,
+            and track how close you are to applying with confidence.
           </p>
         </div>
 
@@ -61,8 +59,8 @@ export default function Login() {
           className="w-full max-w-sm"
         >
           {/* Mobile heading */}
-          <div className="lg:hidden mb-10">
-            <p className="text-xs tracking-[0.25em] text-neutral-500 uppercase">
+          <div className="lg:hidden mb-12">
+            <p className="text-xs tracking-[0.3em] text-neutral-500 uppercase">
               Resume Intelligence
             </p>
             <h2 className="mt-4 text-3xl font-medium tracking-tight">
@@ -70,11 +68,11 @@ export default function Login() {
             </h2>
           </div>
 
-          <h2 className="hidden lg:block text-2xl font-medium tracking-tight mb-10">
+          <h2 className="hidden lg:block text-2xl font-medium tracking-tight mb-12">
             Sign in
           </h2>
 
-          <div className="space-y-8">
+          <div className="space-y-10">
             <div>
               <label className="block text-xs text-neutral-500 mb-2">
                 Email address
@@ -101,6 +99,16 @@ export default function Login() {
                 onChange={(e) => setPassword(e.target.value)}
                 required
               />
+
+              {/* Forgot password */}
+              <div className="mt-3 text-right">
+                <Link
+                  to="/forgot-password"
+                  className="text-xs text-neutral-400 hover:text-white underline underline-offset-4"
+                >
+                  Forgot password?
+                </Link>
+              </div>
             </div>
           </div>
 

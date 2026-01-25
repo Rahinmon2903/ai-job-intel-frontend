@@ -8,6 +8,8 @@ import Dashboard from "./pages/Dashboard";
 import AnalysisHistory from "./pages/AnalysisHistory";
 import AnalysisDetail from "./pages/AnalysisDetails";
 import SkillGapOverview from "./pages/SkillGapOverview";
+import ForgotPassword from "./pages/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword";
 
 function App() {
   const location = useLocation();
@@ -23,6 +25,9 @@ function App() {
         {/* PUBLIC ROUTES */}
         <Route path="/login" element={<Login />} />
         <Route path="/" element={<Register />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+<Route path="/reset-password/:token" element={<ResetPassword />} />
+
 
         {/* PROTECTED ROUTES */}
         <Route
