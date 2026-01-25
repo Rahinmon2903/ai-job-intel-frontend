@@ -5,6 +5,7 @@ import Dashboard from "./pages/Dashboard";
 import AnalysisHistory from "./pages/AnalysisHistory";
 import SkillGapOverview from "./pages/SkillGapOverview";
 import Navbar from "./components/NavBar";
+import AnalysisDetail from "./pages/AnalysisDetails";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
       <Route path="/login" element={<Login />} />
       <Route path="/" element={<Register />} />
       <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="/history/:id" element={<AnalysisDetail />} />
     </Routes>
     </>
   );

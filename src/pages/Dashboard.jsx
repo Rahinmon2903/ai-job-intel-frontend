@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import api from "../api/api";
+import { Link } from "react-router-dom";
 
 export default function Dashboard() {
   const [resumeText, setResumeText] = useState("");
@@ -7,8 +8,8 @@ export default function Dashboard() {
   const [resumeId, setResumeId] = useState(null);
   const [jobId, setJobId] = useState(null);
   const [analysis, setAnalysis] = useState(null);
-  const [insights, setInsights] = useState([]);
 
+  //  RESUME (TEXT) 
   const uploadResume = async () => {
     try {
       const res = await api.post("/resumes", { resumeText });
@@ -19,6 +20,7 @@ export default function Dashboard() {
     }
   };
 
+  //RESUME (PDF) 
   const uploadResumePdf = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
@@ -35,6 +37,7 @@ export default function Dashboard() {
     }
   };
 
+  // JOB 
   const createJob = async () => {
     try {
       const res = await api.post("/jobs", { jobText });
@@ -45,26 +48,15 @@ export default function Dashboard() {
     }
   };
 
+  // -------- ANALYSIS --------
   const analyzeMatch = async () => {
     try {
       const res = await api.post("/analysis", { resumeId, jobId });
       setAnalysis(res.data.analysis);
-      fetchInsights();
     } catch {
       alert("Analysis failed");
     }
   };
-
-  const fetchInsights = async () => {
-    try {
-      const res = await api.get("/insights");
-      setInsights(res.data);
-    } catch {}
-  };
-
-  useEffect(() => {
-    fetchInsights();
-  }, []);
 
   return (
     <div className="min-h-screen bg-black text-white w-full">
@@ -100,7 +92,9 @@ export default function Dashboard() {
             <div className="mt-4 flex items-center gap-6">
               <button
                 onClick={uploadResume}
-                className="text-sm underline underline-offset-4 hover:text-neutral-300"
+                disabled={!resumeText.trim()}
+                className="text-sm underline underline-offset-4 hover:text-neutral-300
+                           disabled:opacity-40"
               >
                 Upload text
               </button>
@@ -131,7 +125,9 @@ export default function Dashboard() {
 
             <button
               onClick={createJob}
-              className="mt-4 text-sm underline underline-offset-4 hover:text-neutral-300"
+              disabled={!jobText.trim()}
+              className="mt-4 text-sm underline underline-offset-4 hover:text-neutral-300
+                         disabled:opacity-40"
             >
               Add job
             </button>
@@ -149,13 +145,13 @@ export default function Dashboard() {
           </button>
         </section>
 
-        {/* RIGHT — RESULTS (STICKY) */}
+        {/* RIGHT — RESULTS */}
         <aside className="space-y-16 xl:sticky xl:top-10 self-start">
           {/* EMPTY STATE */}
           {!analysis && (
             <div className="text-sm text-neutral-500 leading-relaxed">
-              Upload a resume and job description to see
-              how well you match before applying.
+              Upload a resume and job description to see how well you match
+              before applying.
             </div>
           )}
 
@@ -184,7 +180,7 @@ export default function Dashboard() {
 
               <div className="mt-8 border-t border-neutral-800 pt-6">
                 <h3 className="text-sm font-medium text-neutral-400 mb-4">
-                  Missing skills
+                  Missing skills for this job
                 </h3>
 
                 <div className="flex flex-wrap gap-3">
@@ -198,25 +194,15 @@ export default function Dashboard() {
                   ))}
                 </div>
               </div>
-            </div>
-          )}
 
-          {/* INSIGHTS */}
-          {insights.length > 0 && (
-            <div>
-              <h2 className="text-sm font-medium text-neutral-400 mb-4">
-                Insights
-              </h2>
-
-              <div className="space-y-4">
-                {insights.map((i) => (
-                  <div key={i._id}>
-                    <p className="text-sm">{i.skill}</p>
-                    <p className="text-xs text-neutral-500">
-                      Mentioned {i.frequency} times
-                    </p>
-                  </div>
-                ))}
+              {/* LINK TO STRATEGIC VIEW */}
+              <div className="mt-6">
+                <Link
+                  to="/skills"
+                  className="text-sm text-neutral-500 hover:text-neutral-300 underline underline-offset-4"
+                >
+                  View long-term skill gaps →
+                </Link>
               </div>
             </div>
           )}
