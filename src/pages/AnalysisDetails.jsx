@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import api from "../api/api";
+import Loading from "../components/Loading";
 
 export default function AnalysisDetail() {
   const { id } = useParams();
@@ -22,13 +23,9 @@ export default function AnalysisDetail() {
     fetchAnalysis();
   }, [id]);
 
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-black text-white flex items-center justify-center">
-        <p className="text-sm text-neutral-500">Loading analysis…</p>
-      </div>
-    );
-  }
+if (loading) {
+  return <Loading text="Loading analysis report…" />;
+}
 
   if (!analysis) {
     return (

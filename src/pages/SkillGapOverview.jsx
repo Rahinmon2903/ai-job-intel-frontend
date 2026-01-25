@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import api from "../api/api";
+import Loading from "../components/Loading";
 
 export default function SkillGapOverview() {
   const [skills, setSkills] = useState([]);
@@ -20,6 +21,10 @@ export default function SkillGapOverview() {
     fetchSkills();
   }, []);
 
+  if (loading) {
+  return <Loading text="Analyzing skill gaps…" />;
+}
+
   return (
     <div className="min-h-screen bg-black text-white w-full">
       {/* HEADER */}
@@ -38,11 +43,7 @@ export default function SkillGapOverview() {
 
       {/* CONTENT */}
       <main className="px-10 py-16 max-w-7xl">
-        {loading && (
-          <p className="text-sm text-neutral-500">
-            Analyzing recurring skill gaps…
-          </p>
-        )}
+      
 
         {!loading && skills.length === 0 && (
           <div className="mt-24 text-sm text-neutral-500 max-w-md">

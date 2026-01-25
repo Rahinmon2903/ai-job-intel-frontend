@@ -6,13 +6,13 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import AnalysisHistory from "./pages/AnalysisHistory";
-import AnalysisDetail from "./pages/AnalysisDetail";
+import AnalysisDetail from "./pages/AnalysisDetails";
 import SkillGapOverview from "./pages/SkillGapOverview";
 
 function App() {
   const location = useLocation();
 
-  const hideNavbarRoutes = ["/login", "/register"];
+  const hideNavbarRoutes = ["/login", "/"];
   const hideNavbar = hideNavbarRoutes.includes(location.pathname);
 
   return (
@@ -22,7 +22,7 @@ function App() {
       <Routes>
         {/* PUBLIC ROUTES */}
         <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+        <Route path="/" element={<Register />} />
 
         {/* PROTECTED ROUTES */}
         <Route

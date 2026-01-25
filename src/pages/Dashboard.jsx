@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import api from "../api/api";
 import { Link } from "react-router-dom";
+import Loading from "../components/Loading";
 
 export default function Dashboard() {
   const [resumeText, setResumeText] = useState("");
@@ -8,19 +9,23 @@ export default function Dashboard() {
   const [resumeId, setResumeId] = useState(null);
   const [jobId, setJobId] = useState(null);
   const [analysis, setAnalysis] = useState(null);
+  const [loading, setLoading] = useState(false); 
 
-  //  RESUME (TEXT) 
+  // -------- RESUME (TEXT) --------
   const uploadResume = async () => {
     try {
+      setLoading(true);
       const res = await api.post("/resumes", { resumeText });
       setResumeId(res.data.resume._id);
       alert("Resume uploaded");
     } catch {
       alert("Resume upload failed");
+    } finally {
+      setLoading(false);
     }
   };
 
-  //RESUME (PDF) 
+  // -------- RESUME (PDF) --------
   const uploadResumePdf = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
@@ -29,37 +34,54 @@ export default function Dashboard() {
     formData.append("resume", file);
 
     try {
+      setLoading(true);
       const res = await api.post("/resumes/pdf", formData);
       setResumeId(res.data.resume._id);
       alert("PDF uploaded");
     } catch {
       alert("PDF upload failed");
+    } finally {
+      setLoading(false);
     }
   };
 
-  // JOB 
+  // -------- JOB --------
   const createJob = async () => {
     try {
+      setLoading(true);
       const res = await api.post("/jobs", { jobText });
       setJobId(res.data.job._id);
       alert("Job added");
     } catch {
       alert("Job creation failed");
+    } finally {
+      setLoading(false);
     }
   };
 
   // -------- ANALYSIS --------
   const analyzeMatch = async () => {
     try {
+      setLoading(true);
       const res = await api.post("/analysis", { resumeId, jobId });
       setAnalysis(res.data.analysis);
     } catch {
       alert("Analysis failed");
+    } finally {
+      setLoading(false);
     }
   };
 
+  
+
+
   return (
     <div className="min-h-screen bg-black text-white w-full">
+        {loading && (
+  <div className="fixed inset-0 bg-black/70 z-50 flex items-center justify-center">
+    <Loading text="Processing…" />
+  </div>
+)}
       {/* HEADER */}
       <header className="px-10 py-10 border-b border-neutral-800">
         <p className="text-xs tracking-[0.35em] text-neutral-500 uppercase">
@@ -147,7 +169,6 @@ export default function Dashboard() {
 
         {/* RIGHT — RESULTS */}
         <aside className="space-y-16 xl:sticky xl:top-10 self-start">
-          {/* EMPTY STATE */}
           {!analysis && (
             <div className="text-sm text-neutral-500 leading-relaxed">
               Upload a resume and job description to see how well you match
@@ -155,7 +176,6 @@ export default function Dashboard() {
             </div>
           )}
 
-          {/* RESULT */}
           {analysis && (
             <div>
               <p className="text-xs tracking-[0.3em] text-neutral-500 uppercase">
@@ -166,7 +186,6 @@ export default function Dashboard() {
                 {analysis.matchScore}%
               </h2>
 
-              {/* PROGRESS BAR */}
               <div className="mt-4 h-1 w-full bg-neutral-800">
                 <div
                   className="h-1 bg-white transition-all"
@@ -195,7 +214,6 @@ export default function Dashboard() {
                 </div>
               </div>
 
-              {/* LINK TO STRATEGIC VIEW */}
               <div className="mt-6">
                 <Link
                   to="/skills"

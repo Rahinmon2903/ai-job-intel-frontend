@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import api from "../api/api";
 import { useNavigate } from "react-router-dom";
 import ScoreTrendChart from "../components/ScoreTrendChart";
+import Loading from "../components/Loading";
 
 export default function AnalysisHistory() {
   const [history, setHistory] = useState([]);
@@ -23,6 +24,11 @@ export default function AnalysisHistory() {
     fetchHistory();
   }, []);
 
+  
+if (loading) {
+  return <Loading text="Loading analysis history…" />;
+}
+
   return (
     <div className="min-h-screen bg-black text-white w-full">
       <header className="px-10 py-10 border-b border-neutral-800">
@@ -35,9 +41,7 @@ export default function AnalysisHistory() {
       </header>
 
       <main className="px-10 py-14 max-w-5xl">
-        {loading && (
-          <p className="text-sm text-neutral-500">Loading analysis history…</p>
-        )}
+      
 
         {!loading && history.length === 0 && (
           <p className="text-sm text-neutral-500 mt-16">
