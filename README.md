@@ -1,16 +1,95 @@
-# React + Vite
+# Resume Intelligence – Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, AI-powered frontend application that analyzes resume compatibility with job descriptions.  
+Built to help candidates identify skill gaps, track readiness, and improve applications before applying.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Live Demo
 
-## React Compiler
+🔗 https://resume-intelligence-frontend.vercel.app  
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🧩 Features
+
+- Resume upload (Text & PDF)
+- Job description analysis
+- AI-powered match scoring
+- Missing skill visualization
+- Skill gap overview across applications
+- Analysis history & detail pages
+- Score trend visualization
+- Secure authentication (Login / Register)
+- Forgot & Reset password flow
+- Protected routes
+- Modern dark SaaS UI
+- Responsive layout
+
+---
+
+## 🛠 Tech Stack
+
+- React
+- React Router DOM
+- Axios
+- Tailwind CSS
+- React Icons
+- Chart.js / Recharts
+- React Toastify
+
+---
+
+## 📂 Project Structure
+
+```txt
+src/
+├── components/
+│   ├── Navbar.jsx
+│   ├── Loading.jsx
+│   └── ScoreTrendChart.jsx
+│
+├── pages/
+│   ├── Login.jsx
+│   ├── Register.jsx
+│   ├── Dashboard.jsx
+│   ├── AnalysisHistory.jsx
+│   ├── AnalysisDetail.jsx
+│   ├── SkillGapOverview.jsx
+│   ├── ForgotPassword.jsx
+│   └── ResetPassword.jsx
+│
+├── services/
+│   └── api.js
+│
+├── App.jsx
+└── main.jsx
+
+🔐 Authentication Flow
+
+JWT stored in localStorage
+
+Axios interceptor attaches token to requests
+
+Protected routes block unauthenticated access
+
+Password recovery via email-based reset
+
+🧪 Run Locally
+git clone https://github.com/your-username/resume-intelligence-frontend
+cd resume-intelligence-frontend
+npm install
+npm run dev
+
+📌 Notes
+
+This frontend is designed with enterprise SaaS UX patterns:
+
+Clear information hierarchy
+
+Minimal distractions
+
+Strong visual feedback
+
+Scalable page structur
